@@ -34,29 +34,33 @@
 		<div id="divtest1">
 			<div class="title">
 				<span class="fl">我最喜欢的一项运动</span>
-				<span class="fr">
-					<input id="btnShow1" type="button" value="加载" />
-				</span>
+				<span class="fr"><input id="btnShow1" type="button" value="加载" /></span>
 			</div><!--title结束-->
 			<ul class="list" id="list1"></ul>
 		</div><!--divtest1结束-->
 		<div id="divtest2">
 			<div class="title">
 				<span class="fl">我最喜欢的一项运动</span>
-				<span class="fr">
-					<input id="btnShow2" type="button" value="加载" />
-				</span>
+				<span class="fr"><input id="btnShow2" type="button" value="加载" /></span>
 			</div><!--title结束-->
 		<ul class="list" id="list2"></ul>
   </div><!--divtest2结束-->
   		<div id="divtest3">
 			<div class="title">
 				<span class="fl">我的个人资料</span>
-				<span class="fr">
-					<input id="btnShow3" type="button" value="加载" />
-				</span>
+				<span class="fr"><input id="btnShow3" type="button" value="加载" /></span>
 			</div><!--title结束-->
 		<ul class="list" id="list3"></ul>
+  </div><!--divtest3结束-->
+  
+    		<div id="divtest4">
+			<div class="title">
+				<span class="fl">检测数字是否大于0</span>
+				<span class="fr"><input id="btnCheck1" type="button" value="检测" /></span>
+			</div><!--title结束-->
+		<ul class="list" id="list4">
+			<li>请输入一个数字<input id="txtNumber" type="text" size="12"/></li>
+		</ul>
   </div><!--divtest3结束-->
 	</body>
 </html>
@@ -82,7 +86,7 @@
 		
 		$("#btnShow3").bind("click",function(){
 			var $this=$(this);		
-			$.get("PHP/myfile.php",function(data){
+			$.get("./PHP/myfile.php",function(data){
 				$this.attr("disabled","true");
 				console.log($this);//检测
 				$("#list3").append("<li>我的名字叫："+data.name+"</li>");
@@ -90,6 +94,17 @@
 			},"json");
 		})
 		
+		 $(function(){
+		 	$("#btnCheck1").bind("click",function(){
+		 		$.post("./PHP/check.php",{
+		 			   num:$("#txtNumber").val()
+		 		},function(data){
+		 			$("list4").append("<li>你输入的"
+		 			+$("#txtNumber").val()
+		 			+"是"+data+"</li>");
+		 		});
+		 	});
+		 })
 	});
 	
 </script>
