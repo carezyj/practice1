@@ -36,6 +36,14 @@
 			<table>
 				<tr>
 					<td>
+				<div id="divtest0" class="divtest">
+			 <div class="title">
+				<span class="fl">我最爱吃的水果</span>
+				<span class="fr"><input id="btnShow0" class="button" type="button" value="加载" /></span>
+			</div><!--title结束-->
+			<div class="list" id="list0" ></div>
+		</div><!--divtest1结束-->	
+						
 		<div id="divtest1" class="divtest">
 			<div class="title">
 				<span class="fl">我最喜欢的一项运动</span>
@@ -52,7 +60,7 @@
 		<ul class="list" id="list2"></ul>
   </div><!--divtest2结束-->
   
-  		<div id="divtest3" class="divtest">
+  	<div id="divtest3" class="divtest">
 			<div class="title">
 				<span class="fl">我的个人资料</span>
 				<span class="fr"><input id="btnShow3" class="button" type="button" value="加载" /></span>
@@ -106,7 +114,15 @@
 	</body>
 </html>
 <script>
-	$(function(){		
+	$(function(){	
+		//使用load()方法异步请求数据
+		$("#btnShow0").bind("click",function(){
+			var $this=$(this);
+			$("#list0").html("<img src='img/load.png' style='width: 32px;height: 32px;' />")
+			.load("fruit.html",function(){
+				$this.attr("disabled","true");
+			});
+		});
 //		使用getJSON()方法异步加载JSON格式数据
 		$("#btnShow1").bind("click",function(){
 			var $this=$(this);
@@ -171,8 +187,10 @@
 	})
 		});
 		//使用ajaxStart()和ajaxStop()方法
-		$("#divload").ajaxStart(function(){$(this).html("正在请求数据...");});
-		$("#divload").ajaxStop(function(){$(this).html("数据请求完成。");});
+//		 $(document).ajaxStart(function(){$("#divload").attr("display","block");});
+//		 $(document).ajaxStop(function(){$("#divload").attr("display","none");});		
+		$(document).ajaxStart(function(){$("#divload").html("正在请求数据...");});
+		$(document).ajaxStop(function(){$("#divload").html("数据请求完成。");});
 			$("#btnShow7").bind("click",function(){
 		var $this=$(this);
 		$.ajax({
