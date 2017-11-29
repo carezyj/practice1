@@ -2,18 +2,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>使用getJSON()方法异步加载JSON格式数据</title>
+		<title>ajax练习</title>
 	 <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
 	 <style>
 	 	*{
 	 		margin: 5px;
 	 	}
-	 	#divtest1{
+	 	.divtest{
 	 		overflow: hidden;
 	 	}
 	 	.title{
 	 		float: left;
-	 		width:240px;
+	 		width:270px;
 	 		height: 50px;
 	 		line-height: 50px;
 	 		background-color: #F08080;
@@ -21,7 +21,8 @@
 	 	}
 	 	.fl{
 	 		padding:0 10px 0 10px;
-	 	} 	
+	 	} 
+
 	 	.list{
 	 		width: 240px;
 	 		list-style: none;
@@ -31,42 +32,82 @@
 	 </style>
 	</head>
 	<body>
-		<div id="divtest1">
+		<div class="body">
+			<table>
+				<tr>
+					<td>
+		<div id="divtest1" class="divtest">
 			<div class="title">
 				<span class="fl">我最喜欢的一项运动</span>
-				<span class="fr"><input id="btnShow1" type="button" value="加载" /></span>
+				<span class="fr"><input id="btnShow1" class="button" type="button" value="加载" /></span>
 			</div><!--title结束-->
 			<ul class="list" id="list1"></ul>
 		</div><!--divtest1结束-->
-		<div id="divtest2">
+		
+		<div id="divtest2" class="divtest">
 			<div class="title">
 				<span class="fl">我最喜欢的一项运动</span>
-				<span class="fr"><input id="btnShow2" type="button" value="加载" /></span>
+				<span class="fr"><input id="btnShow2" class="button" type="button" value="加载" /></span>
 			</div><!--title结束-->
 		<ul class="list" id="list2"></ul>
   </div><!--divtest2结束-->
-  		<div id="divtest3">
+  
+  		<div id="divtest3" class="divtest">
 			<div class="title">
 				<span class="fl">我的个人资料</span>
-				<span class="fr"><input id="btnShow3" type="button" value="加载" /></span>
+				<span class="fr"><input id="btnShow3" class="button" type="button" value="加载" /></span>
 			</div><!--title结束-->
 		<ul class="list" id="list3"></ul>
   </div><!--divtest3结束-->
-  
-    		<div id="divtest4">
+   <div id="divtest4" class="divtest">
 			<div class="title">
 				<span class="fl">检测数字是否大于0</span>
-				<span class="fr"><input id="btnCheck1" type="button" value="检测" /></span>
+				<span class="fr"><input id="btnCheck1" class="button" type="button" value="检测" /></span>
 			</div><!--title结束-->
 		<ul class="list" id="list4">
 			<li>请输入一个数字<input id="txtNumber" type="text" size="12"/></li>
 		</ul>
-  </div><!--divtest3结束-->
+  </div><!--divtest4结束-->
+    </td>
+  <td>
+  <div id="divtest5" class="divtest">
+			<div class="title">
+				<span class="fl">加载一段文字</span>
+				<span class="fr"><input id="btnShow4" class="button" type="button" value="加载"/></span>
+			</div><!--title结束-->
+				<ul class="list" id="list5">
+				</ul>
+		</div><!--divtest5结束-->
+		
+		<div id="divtest6" class="divtest">
+			<div class="title">
+				<span class="fl">加载一段文字</span>
+				<span class="fr">
+					<input id="btnShow5" type="button" value="加载1"/>
+					<input id="btnShow6" type="button" value="加载2"/>
+				</span>
+			</div>
+			<ul class="list" id="list6"></ul>
+		</div><!--divtest6结束-->
+ 
+ <div id="divtest7" class="divtest">
+			<div class="title">
+				<span class="fl">加载一段文字</span>
+				<span class="fr"><input id="btnShow7" class="button" type="button" value="加载"/></span>
+			</div><!--title结束-->
+				<ul class="list" id="list7">
+					<li id="divload"></li>
+				</ul>
+		</div><!--divtest7结束-->		
+		</td>
+		 </tr>
+		</table>
+		</div>
 	</body>
 </html>
 <script>
 	$(function(){		
-		
+//		使用getJSON()方法异步加载JSON格式数据
 		$("#btnShow1").bind("click",function(){
 			var $this=$(this);
 			$.getJSON("./JSON/data.json",function(data){
@@ -76,14 +117,14 @@
 				});
 			});
 		});	
-		
+//		使用getScript()方法异步加载并执行js文件
 		$("#btnShow2").bind("click",function(){
 			var $this=$(this);
 			$.getScript("./js/sport.js",function(){
 				$this.attr("disabled","true");
 			});
 		});	
-		
+//		使用get()方法以get方式从服务器获取数据
 		$("#btnShow3").bind("click",function(){
 			var $this=$(this);		
 			$.get("./PHP/myfile.php",function(data){
@@ -93,8 +134,7 @@
 				$("#list3").append("<li>男朋友对我说："+data.say+"</li>");
 			},"json");
 		})
-		
-		 $(function(){
+//		使用post()方法以post方式从服务器发送数据
 		 	$("#btnCheck1").bind("click",function(){
 		 		$.post("./PHP/check.php",{
 		 			   num:$("#txtNumber").val()
@@ -104,7 +144,46 @@
 		 			+"是"+data+"</li>");
 		 		});
 		 	});
-		 })
+//	使用ajax方法加载服务器数据
+	$("#btnShow4").bind("click",function(){
+		var $this=$(this);
+		$.ajax({
+			url:"./txt/sun.txt",
+			dataType:"text",
+			success:function(data){
+				$this.attr("disabled","true");
+				$("#list5").append(data);
+			}
+		});
 	});
-	
+	//使用ajaxSetup()方法设置全局Ajax默认选项
+	$.ajaxSetup({
+		dataType:"text",
+		success:function(data){
+			$("#list6").empty().append(data);
+		}
+	});
+	$("#btnShow5").bind("click",function(){
+		$.ajax({url:"txt/article1.txt"});
+	})
+	$("#btnShow6").bind("click",function(){
+		$.ajax({url:"txt/article2.txt"});
+	})
+		});
+		//使用ajaxStart()和ajaxStop()方法
+		$("#divload").ajaxStart(function(){$(this).html("正在请求数据...");});
+		$("#divload").ajaxStop(function(){$(this).html("数据请求完成。");});
+			$("#btnShow7").bind("click",function(){
+		var $this=$(this);
+		$.ajax({
+			url:"./txt/sun.txt",
+			dataType:"text",
+			success:function(data){
+				$this.attr("disabled","true");
+				$("#list7").append(data);
+			}
+		});
+		
+	});
 </script>
+

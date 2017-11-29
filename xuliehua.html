@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>序列化</title>
+		<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+		<style>
+		*{
+	 		margin: 5px;
+	 	}
+	 	#divtest1{
+	 		overflow: hidden;
+	 	}
+	 	.title{
+	 		float: left;
+	 		width:240px;
+	 		height: 50px;
+	 		line-height: 50px;
+	 		background-color: #F08080;
+	 		margin-top: 30px;
+	 	}
+	 	.fl{
+	 		padding:0 10px 0 10px;
+	 	} 	
+	 	ul{
+	 		width: 240px;
+	 		list-style: none;
+	 		line-height: 30px;
+	 		float: left;
+	 	}
+	 </style>
+	</head>
+	<body>
+		<div id="divtest">
+			<div class="title">
+				<span class="fl">我的个人资料</span>
+				<span class="fr"><input id="btnAction" type="button" value="序列化"/></span>
+			</div><!--title结束-->
+			<form action="">
+				<ul>
+					<li>姓名：<input name="Text1" type="text" size="12" /></li>
+				 <li>
+				 	<select name="Select1">
+				 		<option value="0">男</option>
+				 		<option value="1">女</option>
+				 	</select>
+				 </li>
+				 <li><input name="Checkbox1" type="checkbox" />资料是否可见</li>
+				 <li id="litest"></li>
+				</ul>
+			</form>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		$("#btnAction").bind("click",function(){
+			$("#litest").html($("form").serialize());
+		})
+	})
+</script>
